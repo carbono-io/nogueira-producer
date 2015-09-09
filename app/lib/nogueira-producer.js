@@ -26,11 +26,6 @@ var NogueiraProducer = function () {
     this.createMachineRequest = function (data) {
         var deffered = q.defer();
 
-        // This method should:
-        // 1 - use this.queueManager to send a message to our SQS queue
-        // 2 - get the MD5 of the message body and use it as the token
-        // 3 - call the nogueira storage module so it saves the token
-        // 4 - returns the token to the caller
         var message = generateMessageForData(data);
         var promiseSendMessage = this.queueManager.sendMessage(message);
 
@@ -42,12 +37,12 @@ var NogueiraProducer = function () {
 
                 promiseSaveToken
                     .then(function () {
-
+                        deffered.resolve(token);
                     }, function (err) {
-
+                        deffered.reject(err);
                     });
             }, function (err) {
-
+                deffered.reject(err);
             });
 
         return deffered.promise();
@@ -77,3 +72,5 @@ var NogueiraProducer = function () {
 
     }
 };
+
+module.exports = NogueiraProducer;

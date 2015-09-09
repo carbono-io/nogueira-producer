@@ -3,7 +3,7 @@
 var AWS = require('aws-sdk');
 var q   = require('q');
 
-/*jshint multistr: true */
+/* jshint multistr: true */
 /**
  * @const
  * @type {string}
