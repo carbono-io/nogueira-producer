@@ -4,6 +4,7 @@ var request = require('request');
 var q       = require('q');
 var CJM     = require('carbono-json-messages');
 var pjson   = require('../../package.json');
+var path    = require('path');
 
 var NogueiraStorageClient = function () {
     var STORAGE_BASE_URL = 'http://localhost:13956/';
@@ -37,6 +38,36 @@ var NogueiraStorageClient = function () {
             }
 
             deffered.resolve(body);
+        });
+
+        return deffered.promise;
+    };
+
+    /**
+     * Retrives the status of the given token.
+     *
+     * @param {string} Token whose status is to be
+     *                 retrieved.
+     *
+     * @returns {Promise} Promise that resolves in
+     *                    case the status of the 
+     *                    token can be retrieved and
+     *                    rejects otherwise.
+     */
+    this.getStatusForToken = function (token) {
+        var deffered = q.defer();
+
+        var endpoint = path.join(ENDPOINT_TOKEN, token);
+        var options = createBaseRequestForEndpoint(endpoint);
+
+        request.get(options, function (err, res, body) {
+            if (err) {
+                deffered.reject(err);
+
+                return;
+            }
+
+            deffered.resolve(body.data.status);
         });
 
         return deffered.promise;
