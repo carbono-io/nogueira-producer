@@ -8,8 +8,8 @@ var q   = require('q');
  * @const
  * @type {string}
  */
-var DEFAULT_QUEUE_URL = 'https://sqs.us-east-1.amazonaws.\
-        com/891008257771/homolog_carbono_paas';
+var DEFAULT_QUEUE_URL = 
+   'https://sqs.us-east-1.amazonaws.com/891008257771/homolog_carbono_paas';
 
 var DEFAULT_API_VERSION = '2012-11-05';
 var DEFAULT_REGION = 'us-east-1';

@@ -29,8 +29,10 @@
   "dependencies": {
     "aws-sdk": "2.1.50",
     "body-parser": "^1.13.3",
+    "carbono-json-messages": "0.0.2",
     "consign": "^0.1.2",
     "express": "^4.13.3",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "request": "^2.61.0"
   }
 }
