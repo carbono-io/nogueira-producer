@@ -37,7 +37,9 @@ var NogueiraStorageClient = function () {
                 return;
             }
 
-            deffered.resolve(body);
+            body = JSON.parse(body);
+
+            deffered.resolve(body.data.token);
         });
 
         return deffered.promise;
@@ -50,7 +52,7 @@ var NogueiraStorageClient = function () {
      *                 retrieved.
      *
      * @returns {Promise} Promise that resolves in
-     *                    case the status of the 
+     *                    case the status of the
      *                    token can be retrieved and
      *                    rejects otherwise.
      */
@@ -61,11 +63,16 @@ var NogueiraStorageClient = function () {
         var options = createBaseRequestForEndpoint(endpoint);
 
         request.get(options, function (err, res, body) {
+            console.log(err);
+            console.log(body);
+            console.log();
             if (err) {
                 deffered.reject(err);
 
                 return;
             }
+
+            body = JSON.parse(body);
 
             deffered.resolve(body.data.status);
         });

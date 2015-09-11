@@ -44,7 +44,7 @@ var NogueiraProducer = function () {
                     var promiseSaveToken = nsc.saveToken(token);
 
                     promiseSaveToken
-                        .then(function () {
+                        .then(function (token) {
                             deffered.resolve(token);
                         }, function (err) {
                             deffered.reject(err);
