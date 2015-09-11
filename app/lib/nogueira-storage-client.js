@@ -46,11 +46,11 @@ var NogueiraStorageClient = function () {
      * Creates an object that will be used to make
      * a request. The object contains basic properties
      * like the url and content type.
-     *  
+     *
      * @param {string} Endpoint that is to be concatenated
      *                 to the base url to form the complete uri.
      *
-     * @returns {Object} Request object. 
+     * @returns {Object} Request object.
      */
     function createBaseRequestForEndpoint(endpoint) {
         return {
