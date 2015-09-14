@@ -1,6 +1,5 @@
 'use strict';
 
-var NogueiraStorageClient = require('./nogueira-storage-client');
 var QueueManager          = require('./queue-manager');
 var q                     = require('q');
 
@@ -27,7 +26,6 @@ var NogueiraProducer = function () {
     this.createMachineRequest = function (data) {
         var deffered = q.defer();
 
-        var nsc = new NogueiraStorageClient();
         var appHash = data.id;
         var self = this;
 
@@ -41,14 +39,7 @@ var NogueiraProducer = function () {
                     // enough to be an unique token.
                     var token = data.MD5OfMessageAttributes;
 
-                    var promiseSaveToken = nsc.saveToken(token);
-
-                    promiseSaveToken
-                        .then(function (token) {
-                            deffered.resolve(token);
-                        }, function (err) {
-                            deffered.reject(err);
-                        });
+                    deffered.resolve(token);
                 }, function (err) {
                     deffered.reject(err);
                 });
