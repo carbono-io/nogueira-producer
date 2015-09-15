@@ -26,8 +26,10 @@ module.exports = function () {
                 promiseSaveToken
                     .then(function (token) {
                         var data = {
-                            token: token,
+                            id: token,
                         };
+
+                        console.log(token);                        
 
                         res.status(201).json(createSuccessResponse(data));
                     }, function (err) {
@@ -36,7 +38,7 @@ module.exports = function () {
                             .json(createErrorResponse(err));
                     });
             }, function (err) {
-                var code = 500;
+                var code = 400;
 
                 res.status(code).json(createErrorResponse(err, code, ''));
             });
@@ -51,9 +53,9 @@ module.exports = function () {
      */
     var getTokenStatus = function (req, res) {
         var token = req.params.token;
-        var nogueiraProducer = new NogueiraProducer();
+        var nsc = new NogueiraStorageClient();
 
-        var promise = nogueiraProducer.getStatusForToken(token);
+        var promise = nsc.getStatusForToken(token);
 
         promise
             .then(function (status) {
@@ -61,11 +63,9 @@ module.exports = function () {
                     status: status,
                 };
 
-                res.status(200).json(createJsonResponse(data, undefined));
-            }, function (err, code) {
-                res
-                    .status(code || 500)
-                    .json(createJsonResponse(undefined, err));
+                res.status(200).json(createSuccessResponse(data));
+            }, function (err) {
+                res.status(err.code).json(createErrorResponse(err));
             });
     };
 

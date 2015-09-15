@@ -1,7 +1,7 @@
 'use strict';
 
-var QueueManager          = require('./queue-manager');
-var q                     = require('q');
+var QueueManager = require('./queue-manager');
+var q            = require('q');
 
 /**
  * Produces request messages for machines to be
@@ -49,33 +49,6 @@ var NogueiraProducer = function () {
     };
 
     /**
-     * Retrieves the status of the given token.
-     *
-     * @param {string} Token whose status is to be
-     *                 retrieved.
-     *
-     * @returns {Promise} Promise that resolves in
-     *                    case the status of the token
-     *                    can be retrieved and rejects
-     *                    otherwise.
-     */
-    this.getStatusForToken = function (token) {
-        var deffered = q.defer();
-
-        var nsc = new NogueiraStorageClient();
-        var promise = nsc.getStatusForToken(token);
-
-        promise
-            .then(function (status) {
-                deffered.resolve(status);
-            }, function (err) {
-                deffered.reject(err);
-            });
-
-        return deffered.promise;
-    };
-
-    /**
      * Generates the message to be enqueued.
      *
      * @function
@@ -87,7 +60,7 @@ var NogueiraProducer = function () {
      */
     function generateMessageForData(appHash, machine) {
         return {
-            MessageBody: ' ',
+            MessageBody: 'carbono',
             MessageAttributes: {
                 appHash: {
                     DataType: 'String',
