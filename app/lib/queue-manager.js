@@ -11,7 +11,16 @@ var q   = require('q');
 var DEFAULT_QUEUE_URL = 
    'https://sqs.us-east-1.amazonaws.com/891008257771/homolog_carbono_paas';
 
+/**
+ * @const
+ * @type {string}
+ */
 var DEFAULT_API_VERSION = '2012-11-05';
+
+/**
+ * @const
+ * @type {string}
+ */
 var DEFAULT_REGION = 'us-east-1';
 
 /**

@@ -29,7 +29,7 @@ module.exports = function () {
                             id: token,
                         };
 
-                        console.log(token);                        
+                        console.log(token);
 
                         res.status(201).json(createSuccessResponse(data));
                     }, function (err) {
@@ -84,7 +84,7 @@ module.exports = function () {
         cjm.setData(data);
 
         return cjm.toObject();
-    }
+    };
 
     /**
      * Creates an error response, following Google's
@@ -107,7 +107,7 @@ module.exports = function () {
         }
 
         return cjm.toObject();
-    }
+    };
 
     var machineController = {
         enqueueRequest: enqueueRequest,

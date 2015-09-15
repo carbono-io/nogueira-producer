@@ -35,25 +35,23 @@ var NogueiraStorageClient = function () {
                 body = JSON.parse(body);
             }
 
-            var success = (typeof res !== 'undefined') && 
+            var success = (typeof res !== 'undefined') &&
                           (res.statusCode >= 200) &&
                           (res.statusCode < 300);
 
             if (success) {
                 deffered.resolve(body.data.token);
             } else {
-                var error;
+                var error = {
+                    code: 500,
+                    message: 'Something went wrong',
+                };
 
                 if (err) {
                     error = err;
                     error.code = 500;
                 } else if (typeof body.error !== 'undefined') {
                     error = body.error;
-                } else {
-                    error = {
-                        code: 500,
-                        message: 'Something went wrong'
-                    }
                 }
 
                 deffered.reject(error);
@@ -85,7 +83,7 @@ var NogueiraStorageClient = function () {
                 body = JSON.parse(body);
             }
 
-            var success = (typeof res !== 'undefined') && 
+            var success = (typeof res !== 'undefined') &&
                           (res.statusCode >= 200) &&
                           (res.statusCode < 300);
 
@@ -94,7 +92,7 @@ var NogueiraStorageClient = function () {
             } else {
                 var error = {
                     code: 500,
-                    message: 'Something went wrong'
+                    message: 'Something went wrong',
                 };
 
                 if (err) {
