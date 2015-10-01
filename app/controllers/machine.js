@@ -14,6 +14,7 @@ module.exports = function () {
      * @param {Object} Response object
      */
     var enqueueRequest = function (req, res) {
+
         var nogueiraProducer = new NogueiraProducer();
         var nsc = new NogueiraStorageClient();
 
@@ -28,8 +29,6 @@ module.exports = function () {
                         var data = {
                             id: token,
                         };
-
-                        console.log(token);
 
                         res.status(201).json(createSuccessResponse(data));
                     }, function (err) {
@@ -60,12 +59,21 @@ module.exports = function () {
         promise
             .then(function (status) {
                 var data = {
-                    status: status,
+                    id: token,
+                    items: [
+                        {
+                            status: status,
+                        },
+                    ],
                 };
 
                 res.status(200).json(createSuccessResponse(data));
             }, function (err) {
-                res.status(err.code).json(createErrorResponse(err));
+                if (err.code != null) {
+                    res.status(err.code).json(createErrorResponse(err));
+                } else {
+                    res.status(500).json(createErrorResponse(err));
+                }
             });
     };
 
