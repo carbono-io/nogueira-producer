@@ -15,10 +15,11 @@ describe('Running tests on the Nogueira Producer class', function () {
     var mock;
     before(function () {
         mock = sinon.stub(
-            QueueManager.prototype, "sendMessage",
+            QueueManager.prototype, 'sendMessage',
             function (msg) {
                 var deffered = q.defer();
-                if (msg.MessageAttributes.imageName.StringValue === 'crud-basic') {
+                var imageName = msg.MessageAttributes.imageName.StringValue;
+                if (imageName === 'crud-basic') {
                     deffered.resolve({MD5OfMessageAttributes: 999});
                 } else {
                     deffered.reject('Error X');
@@ -31,7 +32,6 @@ describe('Running tests on the Nogueira Producer class', function () {
     after(function () {
         mock.restore();
     });
-
 
     describe('.sendMessage()', function () {
 
@@ -55,7 +55,7 @@ describe('Running tests on the Nogueira Producer class', function () {
                 .done(function () {
                     done();
                 });
-        })
+        });
 
         it('Send a message to the queue', function (done) {
             var nogueiraProducer = new NogueiraProducer();
@@ -74,7 +74,7 @@ describe('Running tests on the Nogueira Producer class', function () {
                 .catch(function (err) {
                     err.should.not.be.null;
                     done();
-                })
+                });
         });
     });
 });

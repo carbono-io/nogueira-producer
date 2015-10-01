@@ -1,14 +1,14 @@
 'use strict';
 
 var chai = require('chai');
-var sinon = require('sinon');
+require('sinon');
 var sinonChai = require('sinon-chai');
-var q = require('q');
 var nock = require('nock');
+
+var NogueiraStorageClient = require('../app/lib/nogueira-storage-client');
 
 chai.should();
 chai.use(sinonChai);
-
 
 describe('Running tests on the Nogueira Storage client', function () {
     before(function () {
@@ -21,7 +21,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('save a token', function (done) {
 
-            var example = nock('http://localhost:13956')
+            nock('http://localhost:13956')
                 .post('/nog/tokens')
                 .reply(200,
                 {
@@ -33,13 +33,12 @@ describe('Running tests on the Nogueira Storage client', function () {
                                 status: 0,
                                 createdAt: new Date(),
                                 updatedAt: new Date(),
-                            }
+                            },
                         ],
-                    }
+                    },
                 }
             );
 
-            var NogueiraStorageClient = require('../app/lib/nogueira-storage-client');
             var nsc = new NogueiraStorageClient();
             var promise = nsc.saveToken('TOKEN-00777');
 
@@ -53,7 +52,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('save a token - fail', function (done) {
 
-            var example = nock('http://localhost:13956')
+            nock('http://localhost:13956')
                 .post('/nog/tokens')
                 .reply(404,
                 {
@@ -61,11 +60,10 @@ describe('Running tests on the Nogueira Storage client', function () {
                     error: {
                         code: 404,
                         message: 'Could not create machine',
-                    }
+                    },
                 }
             );
 
-            var NogueiraStorageClient = require('../app/lib/nogueira-storage-client');
             var nsc = new NogueiraStorageClient();
             var promise = nsc.saveToken('TOKEN-00777');
 
@@ -80,7 +78,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('getTokenStatus', function (done) {
 
-            var example = nock('http://localhost:13956')
+            nock('http://localhost:13956')
                 .get('/nog/tokens/TOKEN-00666')
                 .reply(200,
                 {
@@ -92,13 +90,12 @@ describe('Running tests on the Nogueira Storage client', function () {
                                 status: 1,
                                 createdAt: new Date(),
                                 updatedAt: new Date(),
-                            }
+                            },
                         ],
-                    }
+                    },
                 }
             );
 
-            var NogueiraStorageClient = require('../app/lib/nogueira-storage-client');
             var nsc = new NogueiraStorageClient();
             var promise = nsc.getStatusForToken('TOKEN-00666');
 
@@ -112,7 +109,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('getTokenStatus - fail', function (done) {
 
-            var example = nock('http://localhost:13956')
+            nock('http://localhost:13956')
                 .get('/nog/tokens/TOKEN-00666')
                 .reply(404,
                 {
@@ -120,11 +117,10 @@ describe('Running tests on the Nogueira Storage client', function () {
                     error: {
                         code: 404,
                         message: 'Could not create machine',
-                    }
+                    },
                 }
             );
 
-            var NogueiraStorageClient = require('../app/lib/nogueira-storage-client');
             var nsc = new NogueiraStorageClient();
             var promise = nsc.getStatusForToken('TOKEN-00666');
 

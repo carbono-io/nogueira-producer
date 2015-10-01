@@ -20,12 +20,13 @@ describe('test routes', function () {
 
     before(function () {
         mock = sinon.stub(
-            QueueManager.prototype, "sendMessage",
+            QueueManager.prototype, 'sendMessage',
             function (msg) {
                 var deffered = q.defer();
-                if (msg.MessageAttributes.imageName.StringValue === 'crud-basic') {
+                var imageName = msg.MessageAttributes.imageName.StringValue;
+                if (imageName === 'crud-basic') {
                     deffered.resolve({MD5OfMessageAttributes: 999});
-                } else if (msg.MessageAttributes.imageName.StringValue === 'crud-basic2') {
+                } else if (imageName === 'crud-basic2') {
                     deffered.resolve({MD5OfMessageAttributes: 111});
                 } else {
                     deffered.reject('Error X');
@@ -35,7 +36,7 @@ describe('test routes', function () {
         );
 
         mock2 = sinon.stub(
-            NogueiraStorageClient.prototype, "saveToken",
+            NogueiraStorageClient.prototype, 'saveToken',
             function (msg) {
                 var deffered = q.defer();
                 if (msg === 999) {
@@ -48,7 +49,7 @@ describe('test routes', function () {
         );
 
         mock3 = sinon.stub(
-            NogueiraStorageClient.prototype, "getStatusForToken",
+            NogueiraStorageClient.prototype, 'getStatusForToken',
             function (msg) {
                 var deffered = q.defer();
                 if (msg === 'TOKEN-0777') {
@@ -176,9 +177,6 @@ describe('test routes', function () {
         it('Get Token Status - fail unexpected', function (done) {
             requestGetStatus('TOKEN-0999', function (httpResponse) {
                 httpResponse.statusCode.should.be.equals(500);
-                var obj = JSON.parse(httpResponse.body);
-                obj.apiVersion.should.be.equals('0.0.1');
-                obj.error.should.not.be.null;
                 done();
             });
         });

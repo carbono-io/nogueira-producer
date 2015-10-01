@@ -9,8 +9,34 @@ var path = require('path');
 var STORAGE_BASE_URL = 'http://localhost:13956/nog/';
 var ENDPOINT_TOKEN = 'tokens';
 
-var NogueiraStorageClient = function () {
+/**
+ * Creates an object that will be used to make
+ * a request. The object contains basic properties
+ * like the url and content type.
+ *
+ * @param {string} Endpoint that is to be concatenated
+ *                 to the base url to form the complete uri.
+ *
+ * @returns {Object} Request object.
+ */
+function createBaseRequestForEndpoint(endpoint) {
+    return {
+        url: STORAGE_BASE_URL + (endpoint || ''),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
 }
+
+function createPayloadForData(data) {
+    var cjm = new CJM({apiVersion: pjson.version});
+    cjm.setData(data);
+
+    return cjm.toObject();
+}
+
+var NogueiraStorageClient = function () {
+};
 
 /**
  * Makes a request to Nogueira Storage
@@ -88,7 +114,6 @@ NogueiraStorageClient.prototype.getStatusForToken = function (token) {
         var success = (typeof res !== 'undefined') &&
             (res.statusCode >= 200) &&
             (res.statusCode < 300);
-
         if (success) {
             deffered.resolve(body.data.items[0].status);
         } else {
@@ -96,7 +121,6 @@ NogueiraStorageClient.prototype.getStatusForToken = function (token) {
                 code: 500,
                 message: 'Something went wrong',
             };
-
             if (err) {
                 error = err;
                 error.code = 500;
@@ -110,31 +134,5 @@ NogueiraStorageClient.prototype.getStatusForToken = function (token) {
 
     return deffered.promise;
 };
-
-/**
- * Creates an object that will be used to make
- * a request. The object contains basic properties
- * like the url and content type.
- *
- * @param {string} Endpoint that is to be concatenated
- *                 to the base url to form the complete uri.
- *
- * @returns {Object} Request object.
- */
-function createBaseRequestForEndpoint(endpoint) {
-    return {
-        url: STORAGE_BASE_URL + (endpoint || ''),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-}
-
-function createPayloadForData(data) {
-    var cjm = new CJM({apiVersion: pjson.version});
-    cjm.setData(data);
-
-    return cjm.toObject();
-}
 
 module.exports = NogueiraStorageClient;

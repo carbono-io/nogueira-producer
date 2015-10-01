@@ -69,10 +69,10 @@ module.exports = function () {
 
                 res.status(200).json(createSuccessResponse(data));
             }, function (err) {
-                if (err.code != null) {
-                    res.status(err.code).json(createErrorResponse(err));
-                } else {
+                if (err.code === undefined) {
                     res.status(500).json(createErrorResponse(err));
+                } else {
+                    res.status(err.code).json(createErrorResponse(err));
                 }
             });
     };
