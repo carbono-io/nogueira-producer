@@ -23,14 +23,17 @@
     "jsdoc": "3.3.2",
     "jshint-stylish": "2.0.1",
     "mocha": "2.2.5",
+    "nock": "^2.13.0",
     "sinon": "1.15.4",
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "aws-sdk": "2.1.50",
     "body-parser": "^1.13.3",
+    "carbono-json-messages": "0.0.2",
     "consign": "^0.1.2",
     "express": "^4.13.3",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "request": "^2.61.0"
   }
 }
