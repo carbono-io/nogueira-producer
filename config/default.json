@@ -1,0 +1,13 @@
+{
+    "etcd": {
+        "host": "127.0.0.1",
+        "port": 9471,
+        "key" : "nog",
+        "alias" : "Carbono Nogueira - producer",
+        "namespace" : "/nog/",
+        "dependencies" : [
+                {"key" : "nog-storage", "alias" : "Nogueira Storage"}
+        ]
+    },
+    "port" : 9471
+}

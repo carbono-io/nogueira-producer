@@ -21,7 +21,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('save a token', function (done) {
 
-            nock('http://localhost:13956')
+            nock('http://127.0.0.1:13956')
                 .post('/nog/tokens')
                 .reply(200,
                 {
@@ -52,7 +52,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('save a token - fail', function (done) {
 
-            nock('http://localhost:13956')
+            nock('http://127.0.0.1:13956')
                 .post('/nog/tokens')
                 .reply(404,
                 {
@@ -78,7 +78,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('getTokenStatus', function (done) {
 
-            nock('http://localhost:13956')
+            nock('http://127.0.0.1:13956')
                 .get('/nog/tokens/TOKEN-00666')
                 .reply(200,
                 {
@@ -109,7 +109,7 @@ describe('Running tests on the Nogueira Storage client', function () {
 
         it('getTokenStatus - fail', function (done) {
 
-            nock('http://localhost:13956')
+            nock('http://127.0.0.1:13956')
                 .get('/nog/tokens/TOKEN-00666')
                 .reply(404,
                 {
