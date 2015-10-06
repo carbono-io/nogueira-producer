@@ -5,23 +5,25 @@ var q = require('q');
 var CJM = require('carbono-json-messages');
 var pjson = require('../../package.json');
 var path = require('path');
+var serviceManager = require('carbono-service-manager');
 
-var STORAGE_BASE_URL = 'http://localhost:13956/nog/';
 var ENDPOINT_TOKEN = 'tokens';
 
 /**
  * Creates an object that will be used to make
  * a request. The object contains basic properties
  * like the url and content type.
- *
+
+
  * @param {string} Endpoint that is to be concatenated
  *                 to the base url to form the complete uri.
  *
  * @returns {Object} Request object.
  */
 function createBaseRequestForEndpoint(endpoint) {
+    var _url = serviceManager.getServiceUrl('nog-storage');
     return {
-        url: STORAGE_BASE_URL + (endpoint || ''),
+        url: 'http://' + _url + (endpoint || ''),
         headers: {
             'Content-Type': 'application/json',
         },
