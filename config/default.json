@@ -1,6 +1,6 @@
 {
     "etcd": {
-        "host": "carbono-host",
+        "host": "carbonohost",
         "port": 9471,
         "key" : "nog",
         "alias" : "Carbono Nogueira - producer",
