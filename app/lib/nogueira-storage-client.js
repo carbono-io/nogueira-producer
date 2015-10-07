@@ -55,7 +55,7 @@ var NogueiraStorageClient = function () {
 NogueiraStorageClient.prototype.saveToken = function (token) {
     var deffered = q.defer();
 
-    var payload = createPayloadForData({token: token});
+    var payload = createPayloadForData({id: token, items:[{status:0}] });
     var options = createBaseRequestForEndpoint(ENDPOINT_TOKEN);
 
     options.json = payload;
