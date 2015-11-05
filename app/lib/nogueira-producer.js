@@ -70,6 +70,10 @@ var NogueiraProducer = function () {
                     DataType: 'String',
                     StringValue: machine.imageName,
                 },
+                route: {
+                    DataType: 'String',
+                    StringValue: machine.route,
+                },
             },
         };
     }

@@ -9,7 +9,7 @@ var q   = require('q');
  * @type {string}
  */
 var DEFAULT_QUEUE_URL =
-   'https://sqs.us-east-1.amazonaws.com/891008257771/homolog_carbono_paas';
+   'https://sqs.us-east-1.amazonaws.com/891008257771/staging_paas';
 
 /**
  * @const
