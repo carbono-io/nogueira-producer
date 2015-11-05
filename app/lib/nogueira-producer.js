@@ -26,54 +26,57 @@ var NogueiraProducer = function () {
     this.createMachineRequest = function (data) {
         var deffered = q.defer();
 
-        // This method should:
-        // 1 - use this.queueManager to send a message to our SQS queue
-        // 2 - get the MD5 of the message body and use it as the token
-        // 3 - call the nogueira storage module so it saves the token
-        // 4 - returns the token to the caller
-        var message = generateMessageForData(data);
-        var promiseSendMessage = this.queueManager.sendMessage(message);
+        var appHash = data.id;
+        var self = this;
 
-        promiseSendMessage
-            .then(function (data) {
-                var token = data.MD5OfMessageAttributes;
+        data.items.forEach(function (machine) {
+            var message = generateMessageForData(appHash, machine);
+            var promiseSendMessage = self.queueManager.sendMessage(message);
 
-                var promiseSaveToken = saveToken(token);
+            promiseSendMessage
+                .then(function (data) {
+                    // MD5 of the message attributes should be
+                    // enough to be an unique token.
+                    var token = data.MD5OfMessageAttributes;
 
-                promiseSaveToken
-                    .then(function () {
+                    deffered.resolve(token);
+                }, function (err) {
+                    deffered.reject(err);
+                });
+        });
 
-                    }, function (err) {
-
-                    });
-            }, function (err) {
-
-            });
-
-        return deffered.promise();
+        return deffered.promise;
     };
 
-    function generateMessageForData(data) {
+    /**
+     * Generates the message to be enqueued.
+     *
+     * @function
+     * @param {Object} Object containing the App's hash,
+     *                 and the ID of the image to be
+     *                 deployed.
+     *
+     * @returns {Object} Returns an SQS message
+     */
+    function generateMessageForData(appHash, machine) {
         return {
-            MessageBody: '',
+            MessageBody: 'carbono',
             MessageAttributes: {
                 appHash: {
                     DataType: 'String',
-                    StringValue: data.appHash,
+                    StringValue: appHash,
                 },
-                component: {
+                imageName: {
                     DataType: 'String',
-                    StringValue: data.component,
+                    StringValue: machine.imageName,
                 },
                 route: {
                     DataType: 'String',
-                    StringValue: data.route,
+                    StringValue: machine.route,
                 },
             },
         };
     }
-
-    function saveToken(token) {
-
-    }
 };
+
+module.exports = NogueiraProducer;

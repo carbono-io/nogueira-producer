@@ -7,11 +7,11 @@ var sinonChai = require('sinon-chai');
 chai.should();
 chai.use(sinonChai);
 
-var QueueManager = require('../app/lib/queue-manager');
+var QueueManager = require('app/lib/queue-manager');
 
-/*jshint multistr: true */
-var DEFAULT_QUEUE_URL = 'https://sqs.us-east-1.amazonaws.\
-                         com/891008257771/homolog_carbono_paas';
+/* jshint multistr: true */
+var DEFAULT_QUEUE_URL =
+    'https://sqs.us-east-1.amazonaws.com/891008257771/homolog_carbono_paas';
 
 describe('Running tests on the Queue Manager class', function () {
 

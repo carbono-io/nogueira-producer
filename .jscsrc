@@ -20,7 +20,6 @@
   "disallowTrailingWhitespace": true,
   "maximumLineLength": 80,
   "requireCamelCaseOrUpperCaseIdentifiers": true,
-  "requireCapitalizedComments": true,
   "requireCapitalizedConstructors": true,
   "requireCommaBeforeLineBreak": true,  
   "requireCurlyBraces": true,
@@ -53,7 +52,7 @@
   "requireTrailingComma": {
     "ignoreSingleLine": true
   },
-  "validateIndentation": 4,
+  "validateIndentation": { "value": 4, "allExcept": ["comments"] },
   "validateLineBreaks": "LF",
   "validateQuoteMarks": "'",
   "jsDoc": {
